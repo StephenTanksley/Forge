@@ -43,19 +43,29 @@ class Mouse:
 mouse = Mouse()
 
 
-def on_press(key):
-    try:
-        print('alphanumeric key {0} pressed'.format(key.char))
-    except AttributeError:
-        print('special key {0} pressed'.format(key))
+class Keyboard:
 
+    def __init__(self, key):
+        self.key = key
 
-def on_release(key):
-    print('{0} released'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
+    def __str__(self):
+        return f'Current key: {self.key}'
+
+    def __repr__(self):
+        return [self.key]
+
+    def on_press(self):
+        try:
+            print('alphanumeric key {0} pressed'.format(self.key.char))
+        except AttributeError:
+            print('special key {0} pressed'.format(self.key))
+
+    def on_release(self):
+        print('{0} released'.format(
+            self.key))
+        if self.key == keyboard.Key.esc:
+            # Stop listener
+            return False
 
 
 # BLOCKING - Need to figure out how to get these working inside a MAIN loop using the tkinter GUI.
