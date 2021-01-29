@@ -10,13 +10,14 @@ from pynput import mouse, keyboard
 
 
 class Preset:
-    def __init__(self, xy_0=(0, 0), xy_1=(0, 0), active=False):
+    def __init__(self, name, xy_0=(0, 0), xy_1=(0, 0), active=False):
+        self.name = name
         self.xy_0 = xy_0
         self.xy_1 = xy_1
         self.active = active
 
     def __str__(self):
-        return f'First coordinate pair: ({self.xy_0})\nSecond coordinate pair: ({self.xy_1})\nCurrently Active: {self.active}'
+        return f'\nPreset name: {self.name}\nFirst coordinate pair: ({self.xy_0})\nSecond coordinate pair: ({self.xy_1})\nCurrently Active: {self.active}\n'
 
     def __repr__(self):
         return f'[{self.xy_0}, {self.xy_1}, {self.active}]'
@@ -31,6 +32,7 @@ class Preset:
         self.active = True if (self.active == False) else False
 
 
-preset = Preset((0, 0), (0, 0))
-print("String: ", preset.__str__())
-print("Repr: ", preset.__repr__())
+preset = Preset("Boots of groovening")
+
+# print(preset.__str__())
+print(preset)
