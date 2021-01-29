@@ -1,6 +1,6 @@
 from tkinter import ttk
 from tkinter import *
-# from poe_script import Preset
+from poe_script import Preset
 
 
 def calculate(*args):
@@ -10,7 +10,7 @@ def calculate(*args):
     except ValueError:
         pass
 
-# # # GUI down here
+# GUI down here
 
 
 root = Tk()
