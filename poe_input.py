@@ -41,11 +41,13 @@ class Mouse:
 
 
 mouse = Mouse()
+print('\n')
+print(mouse, "\n")
 
 
 class Keyboard:
 
-    def __init__(self, key):
+    def __init__(self, key=None):
         self.key = key
 
     def __str__(self):
@@ -63,10 +65,13 @@ class Keyboard:
     def on_release(self):
         print('{0} released'.format(
             self.key))
-        if self.key == keyboard.Key.esc:
+        if self.key == keyboard.key.esc:
             # Stop listener
             return False
 
+
+keyboard = Keyboard()
+print(keyboard, "\n")
 
 # BLOCKING - Need to figure out how to get these working inside a MAIN loop using the tkinter GUI.
 
