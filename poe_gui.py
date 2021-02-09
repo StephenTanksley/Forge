@@ -1,68 +1,50 @@
-from tkinter import ttk
-from tkinter import *
-# from pynput import mouse, keyboard
+import teek
+import threading
 from poe_script import Preset
-# from poe_input import Mouse, Keyboard
+from poe_input import Mouse
+from pynput import mouse
 
 
-# def calculate(*args):
-#     try:
-#         value = float(feet.get())
-#         meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
-#     except ValueError:
-#         pass
+class POEForge(teek.Frame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        preset = Preset("First Preset Object", (0, 0), (0, 0), False)
 
-# GUI down here
+        description = teek.Label(
+            window, "This is a utility for crafting new sexy items in Path of Exile.")
+        description.grid(column=0, row=0)
 
-class POEForge:
-    def __init__(self, root):
-        root.title("Path of Exile Forge")
+        instructions = teek.Text(window)
+        instructions.insert(
+            instructions.start, "To craft an item, click on the 'Target (x): ' button, then move to the currency item and left-click.")
+        instructions.grid(column=0, row=0)
+        instructions.config['background'] = teek.Color('blue')
 
-        preset = Preset((0, 0), (0, 0), False)
-        # test_mouse = Mouse()
-        # test_keyboard = Keyboard()
+        targets = teek.Frame(window)
+        targets.grid(column=0, row=0)
+        targets_label = teek.Label(
+            targets, text="Current Targets", font=("Helvetica", 20))
+        targets_label.grid(column=0, row=1)
 
-        mainframe = ttk.Frame(root, borderwidth=5, padding="5 5 15 15")
-        mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-        root.columnconfigure(0, weight=1)
-        root.rowconfigure(0, weight=1)
+        target1 = teek.Label(targets, text="Target 1: ")
+        target1.grid(column=0, row=2)
 
-        target_1 = StringVar()
-        ttk.Label(mainframe, width=7, textvariable=target_1).grid(
-            column=2, row=1, sticky=(W, E))
-
-        target_2 = StringVar()
-        ttk.Label(mainframe, textvariable=target_2).grid(
-            column=2, row=2, sticky=(W, E))
-
-        # ttk.Button(mainframe, text="Calculate", command=calculate).grid(
-        #     column=3, row=3, sticky=W)
-
-        ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
-        ttk.Label(mainframe, text="is equivalent to").grid(
-            column=1, row=2, sticky=E)
-        ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
-
-        for child in mainframe.winfo_children():
-            child.grid_configure(padx=5, pady=5)
-
-# feet_entry.focus()
-# root.bind("<Return>", calculate)
+        target2 = teek.Label(targets, text="Target 2: ")
+        target2.grid(column=0, row=3)
 
 
-# This is where I'm binding the input controls for the application.
+teek.init_threads()
+window = teek.Window("Path of Exile Forge")
+POEForge(window)
+window.geometry(800, 600)
 
-# mouse_listener = mouse.Listener(
-#     on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll)
-# mouse_listener.start()
-
-# keyboard_listener = keyboard.Listener(
-#     on_press=test_keyboard.on_press, on_release=test_keyboard.on_release)
-# keyboard_listener.start()
+test_mouse = Mouse()
 
 
-# This is the invocation function. Kinda like the render in React. I'm choosing to encapsulate the application in a class.
+# I'll need a keyboard controller and a mouse controller here eventually.
+MouseListener = mouse.Listener(
+    on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll)
+MouseListener.start()
 
-root = Tk()
-POEForge(root)
-root.mainloop()
+window.on_delete_window.connect(teek.quit)
+teek.run()
