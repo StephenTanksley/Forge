@@ -30,9 +30,3 @@ class Preset:
 
     def toggle_active(self):
         self.active = True if (self.active == False) else False
-
-
-preset = Preset("Boots of groovening")
-
-# print(preset.__str__())
-print(preset)
