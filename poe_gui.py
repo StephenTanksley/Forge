@@ -6,8 +6,8 @@ from pynput import mouse
 
 
 class POEForge(teek.Frame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, window, *args, **kwargs):
+        super().__init__(window, *args, **kwargs)
 
         description = teek.Text(window)
         print(description.end)
@@ -28,20 +28,9 @@ class POEForge(teek.Frame):
         target2.grid(column=1, row=3)
 
 
-# This is where the threads for the program are actually initiated.
-teek.init_threads()
-
-# I have to have these lines like this because
-window = teek.Window("Path of Exile Forge")
-POEForge(window)
-window.geometry(800, 600)
-
-test_mouse = Mouse()
+# test_mouse = Mouse()
 
 # I'll need a keyboard controller and a mouse controller here eventually.
-MouseListener = mouse.Listener(
-    on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll)
-MouseListener.start()
-
-window.on_delete_window.connect(teek.quit)
-teek.run()
+# MouseListener = mouse.Listener(
+#     on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll)
+# MouseListener.start()
