@@ -17,32 +17,39 @@ class POEForge(teek.Frame):
         # description.end
 
         # description.grid(column=0, row=0, sticky='nswe')
-        # description.pack(fill='x')
 
         """LABELS"""
-        targets = teek.Frame(window)
+        targets = teek.LabelFrame(window)
         targets.grid(column=1, row=1)
 
         target1 = teek.Label(targets, text="Target 1: ")
-        target1.grid(column=1, row=2)
+        target1.grid(column=1, row=2, sticky="W", padx=20, pady=5)
 
         target2 = teek.Label(targets, text="Target 2: ")
-        target2.grid(column=1, row=3)
+        target2.grid(column=1, row=3, sticky="W", padx=20, pady=5)
 
         item_target = teek.Label(targets, text="Item Target: ")
-        item_target.grid(column=1, row=4)
+        item_target.grid(column=1, row=4, sticky="W", padx=20, pady=5)
 
         stat_tier = teek.Label(targets, text="Desired Stat Tier: ")
-        stat_tier.grid(column=1, row=5)
+        stat_tier.grid(column=1, row=5, sticky="W", padx=20, pady=5)
 
         max_iterations = teek.Label(targets, text="Max # of iterations: ")
-        max_iterations.grid(column=1, row=6)
+        max_iterations.grid(column=1, row=6, sticky="W", padx=20, pady=5)
 
         target_1_limit = teek.Label(targets, "Target 1 currency limit: ")
-        target_1_limit.grid(column=6, row=2)
+        target_1_limit.grid(column=6, row=2, sticky="W", padx=20, pady=5)
 
         target_2_limit = teek.Label(targets, "Target 2 currency limit: ")
-        target_2_limit.grid(column=6, row=3)
+        target_2_limit.grid(column=6, row=3, sticky="W", padx=20, pady=5)
+
+        status_label = teek.Label(targets, text="Program Status Updates:")
+        status_label.grid(column=8, row=1, columnspan=2,
+                          sticky="WS", padx=20, pady=5)
+
+        cycle_number_label = teek.Label(targets, "Current Cycle: ")
+        cycle_number_label.grid(
+            column=4, row=7, columnspan=2, rowspan=3, sticky="W")
 
         """VARIABLES"""
 
@@ -55,9 +62,18 @@ class POEForge(teek.Frame):
         t2_x_var = teek.FloatVar()
         t2_y_var = teek.FloatVar()
 
+        target_item_x = teek.FloatVar()
+        target_item_y = teek.FloatVar()
+
         t1_limit_var = teek.IntVar()
         t2_limit_var = teek.IntVar()
+
+        item_stat_tier = teek.IntVar()
+        max_iterations = teek.IntVar()
 
         """BUTTONS"""
 
         """INPUT FIELDS"""
+        max_iteration_input = teek.Entry(targets, text=max_iterations)
+        max_iteration_input.grid(
+            column=2, row=6, columnspan=2, sticky="W", padx=3)
