@@ -58,7 +58,7 @@ class POEForge(teek.Frame):
         status_label.config['font'] = label_font_setting
 
         status_label.grid(column=8, row=1, columnspan=2,
-                          sticky="WS", padx=20, pady=5)
+                          sticky="WS", pady=5)
 
         # Cycles
         current_cycle_num = teek.IntVar()
