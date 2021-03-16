@@ -5,25 +5,40 @@ from poe_input import Mouse
 from pynput import mouse
 
 
+def print_item():
+    print("I'm being activated")
+
+
 class POEForge(teek.Frame):
     def __init__(self, window, *args, **kwargs):
         super().__init__(window, *args, **kwargs)
 
-        # top_frame = teek.Frame(window)
-        # description_1 = "This is a utility for crafting high stat items in Path of Exile. To begin crafting an item, click on the 'Target (x): ' button, then move to the currency item and left-click. Repeat for the other targets. Set the stat tier and max iterations and then save all preferences in a named preset. Then click the run button. If you need to stop execution at any time during the runtime, press the Stop button."
+        targets = teek.Frame(window)
+        targets.grid(column=0, row=0)
 
-        # description = teek.Text(top_frame)
+        # description_1 = """
+        # This is a utility for crafting high stat items in Path of Exile.
+
+        # To begin crafting an item, click on the 'Target (x): ' button, then move to the currency item and left-click.
+
+        # Repeat for the other targets.
+
+        # Set the stat tier and max iterations and then save all preferences in a named preset, then click the run button.
+
+        # If you need to stop execution at any time during the runtime, press the Stop button."""
+
+        # description = teek.Text(targets)
         # description.insert(description.start, description_1)
         # description.end
 
-        # description.grid(column=0, row=0, sticky='nswe')
+        # description.grid(column=0, row=0, columnspan=7, sticky='nswe')
 
         """LABELS"""
 
         label_font_setting = ('Helvetica', 16)
 
-        targets = teek.LabelFrame(window, text="Path of Exile Forge")
-        targets.grid(column=1, row=1)
+        # targets = teek.LabelFrame(window, text="Path of Exile Forge")
+        # targets.grid(column=0, row=0)
 
         target1 = teek.Label(targets, text="Target 1 coordinates: ")
         target1.config['font'] = label_font_setting
@@ -89,6 +104,8 @@ class POEForge(teek.Frame):
         target_item_y = teek.FloatVar()
         target_item_tuple = (target_item_x, target_item_y)
 
+        # I may want to define the defaults inside the Preset class.
+        # These presets are more of a data attribute that should be handled elsewhere.
         t1_limit_var = teek.IntVar()
         t1_limit_var.set(5000)
         t2_limit_var = teek.IntVar()
@@ -103,6 +120,18 @@ class POEForge(teek.Frame):
         max_iterations.set(5000)
 
         """BUTTONS"""
+
+        target_1_set = teek.Button(
+            targets, text="Set target 1 (x,y)", width=15, command=print_item)
+        target_1_set.grid(column=3, row=2, sticky="W", padx=3)
+
+        target_2_set = teek.Button(
+            targets, text="Set target 2 (x,y)", width=15, command=print_item)
+        target_2_set.grid(column=3, row=3, sticky="W", padx=3)
+
+        item_target_set = teek.Button(
+            targets, text="Set item target (x,y)", width=15, command=print_item)
+        item_target_set.grid(column=3, row=4, sticky="W", padx=3)
 
         """INPUT FIELDS"""
         # Will need to BIND these.
