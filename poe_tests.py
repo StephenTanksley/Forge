@@ -16,11 +16,12 @@ class InterfaceTest(unittest.TestCase):
         keyboard = Keyboard()
         preset = Preset("test")
 
-    def preset_testing(self):
+    def test_preset(self):
+
         pass
 
-    def input_testing(self):
+    def test_input(self):
         pass
 
-    def gui_testing(self):
+    def test_ui(self):
         pass

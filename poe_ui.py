@@ -10,8 +10,15 @@ def print_item():
 
 
 class POEForge(teek.Frame):
-    def __init__(self, window, *args, **kwargs):
+    def __init__(self, window, bus, *args, **kwargs):
         super().__init__(window, *args, **kwargs)
+        self._bus = bus
+
+        def trigger_listener():
+            self._bus.emit("click listener")
+
+        def stop_listener():
+            self._bus.emit('stop listener')
 
         frame = teek.Frame(window)
         frame.grid(column=0, row=0)
@@ -49,7 +56,7 @@ class POEForge(teek.Frame):
 
         target_2_limit.grid(column=5, row=3, sticky="W", padx=20, pady=5)
 
-        status_label = teek.Label(frame, text="Program Status Updates:")
+        status_label = teek.Label(frame, text="Program Status Updates: ")
         status_label.config['font'] = label_font_setting
 
         status_label.grid(column=8, row=1, columnspan=2,
@@ -72,6 +79,8 @@ class POEForge(teek.Frame):
         """
         To use variables, you can't just try to manually assign them like you would normally in Python. a = 10 won't work. In the case of a, you'd need to write a.set(new_value) because we're technically using a subclass of TclVariable. We need to use the getter/setter methods to access and modify data stored in each object instance.
         """
+
+        # Do I even need these? If I'm already storing these as a tuple in the preset, I might not need this.
         t1_x_var = teek.FloatVar()
         t1_y_var = teek.FloatVar()
         t1_var_tuple = (t1_x_var, t1_y_var)
@@ -94,23 +103,26 @@ class POEForge(teek.Frame):
         item_stat_tier = teek.IntVar()
         item_stat_tier.set(1)
         stat_tier_entry = teek.Entry(frame, text=item_stat_tier.get())
-        stat_tier_entry.grid(column=2, row=5, sticky="W", pady=5)
+        stat_tier_entry.grid(column=2, row=5, sticky="W")
 
         max_iterations = teek.IntVar()
         max_iterations.set(5000)
 
-        """BUTTONS"""
+        set_preset_name_label = teek.Label(frame, text="Set Preset Name: ")
+        set_preset_name_label.grid(column=5, row=6, sticky="W")
+        set_preset_name = teek.StringVar()
 
+        """BUTTONS"""
         target_1_set = teek.Button(
-            frame, text="Set target 1 (x,y)", width=15, command=print_item)
+            frame, text="Set target 1 (x,y)", width=15, command=trigger_listener)
         target_1_set.grid(column=3, row=2, sticky="W", padx=3)
 
         target_2_set = teek.Button(
-            frame, text="Set target 2 (x,y)", width=15, command=print_item)
+            frame, text="Set target 2 (x,y)", width=15, command=stop_listener)
         target_2_set.grid(column=3, row=3, sticky="W", padx=3)
 
         item_target_set = teek.Button(
-            frame, text="Set item target (x,y)", width=15, command=print_item)
+            frame, text="Set item target (x,y)", width=15, command=trigger_listener)
         item_target_set.grid(column=3, row=4, sticky="W", padx=3)
 
         """INPUT FIELDS"""
