@@ -34,7 +34,7 @@ class Preset:
         self.item = item
 
     def get_xy_1(self):
-        return self.name
+        return self.xy_1
 
     def set_xy_1(self, xy_1):
         self.xy_1 = xy_1
