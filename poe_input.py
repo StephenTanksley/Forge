@@ -4,17 +4,22 @@ from sys import exit
 
 
 class Mouse(Controller):
-    def __init__(self, x=0, y=0, button=None, pressed=False):
+    def __init__(self, bus, x=0, y=0, button=None, pressed=False):
         self.x = self.position
         self.y = self.position
         self.button = button
         self.pressed = pressed
+        self._bus = bus
+        self.last_click = None
 
     def __str__(self):
         return f'Current state:\nx-coordinate: {self.x}\ny-coordinate: {self.y}\nbutton: {self.button}\npressed: {self.pressed}'
 
     def __repr__(self):
         return f'[{self.x}, {self.y}, {self.button}, {self.pressed}]'
+
+    def set_last_click(self, coordinates):
+        self.last_click = (coordinates)
 
     def on_move(self, x, y):
 
@@ -23,11 +28,13 @@ class Mouse(Controller):
         print('Pointer moved to {0}, {1}'.format(self.x, self.y))
 
     def on_click(self, *args):
+
+        mouse_button = args[2]
         x = float(round(self.position[0], 2))
         y = float(round(self.position[1], 2))
 
-        print([x, y])
-        return [x, y]
+        print(mouse_button, x, y)
+        return [mouse_button, x, y]
 
     def on_scroll(self, x, y, dx, dy):
 
@@ -40,8 +47,10 @@ class Mouse(Controller):
 
 class Keyboard(Controller):
 
-    def __init__(self, key=None):
+    def __init__(self, bus, key=None):
         self.key = key
+        self.command = [0] * 2
+        self._bus = bus
 
     def __str__(self):
         return f'Current key: {self.key}'
@@ -64,27 +73,21 @@ class Keyboard(Controller):
             print("Exiting keyboard listener. Goodbye!")
             exit()
 
+# BLOCKING:
 
-# test_keyboard = Keyboard()
-# test_mouse = Mouse()
-
-# print(mouse)
-
-# BLOCKING - Need to figure out how to get these working inside a MAIN loop using the tkinter GUI.
-
-# with mouse.Listener(on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll) as mouse_listener:
+# with mouse.Listener(on_move=controller_mouse.on_move, on_click=controller_mouse.on_click, on_scroll=controller_mouse.on_scroll) as mouse_listener:
 #     mouse_listener.join()
 
-# with keyboard.Listener(on_press=test_keyboard.on_press, on_release=test_keyboard.on_release) as keyboard_listener:
+# with keyboard.Listener(on_press=controller_keyboard.on_press, on_release=controller_keyboard.on_release) as keyboard_listener:
 #     keyboard_listener.join()
 
 
-# # NON-BLOCKING - I think this is the implementation I'll need because I can't be blocking the main loop of the GUI.
+# NON-BLOCKING:
 
 # MouseListener = mouse.Listener(
-#     on_move=test_mouse.on_move, on_click=test_mouse.on_click, on_scroll=test_mouse.on_scroll)
+#     on_move=controller_mouse.on_move, on_click=controller_mouse.on_click, on_scroll=controller_mouse.on_scroll)
 # MouseListener.start()
 
 # KeyboardListener = keyboard.Listener(
-#     on_press=test_keyboard.on_press, on_release=test_keyboard.on_release)
+#     on_press=controller_keyboard.on_press, on_release=controller_keyboard.on_release)
 # KeyboardListener.start()
