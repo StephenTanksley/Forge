@@ -7,23 +7,49 @@
 
 
 class Preset:
-    def __init__(self, name, item=None, xy_0=(0, 0), xy_1=(0, 0), **kwargs):
+    def __init__(self, name, bus, item=None, xy_1=(0, 0), xy_2=(0, 0), active=False, **kwargs):
         self.name = name
+        self._bus = bus
         self.item = item
-        self.xy_0 = xy_0
         self.xy_1 = xy_1
+        self.xy_2 = xy_2
+        self.kwargs = [kwargs]
 
     def __str__(self):
-        return f'\nPreset name: {self.name}\nItem: {self.item}\nFirst coordinate pair: ({self.xy_0})\nSecond coordinate pair: ({self.xy_1})\n'
+        return f'\nPreset name: {self.name}\nItem: {self.item}\nFirst coordinate pair: ({self.xy_1})\nSecond coordinate pair: ({self.xy_2})\n'
 
     def __repr__(self):
-        return f'[{self.name}, {self.xy_0}, {self.xy_1}]'
+        return f'[{self.name}, {self.item}, {self.xy_1}, {self.xy_2}]'
 
-    def change_target(self, target, x, y):
-        if target == 0:
-            self.xy_0 = (x, y)
-        elif target == 1:
-            self.xy_1 = (x, y)
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_item(self):
+        return self.item
+
+    def set_item(self, item):
+        self.item = item
+
+    def get_xy_1(self):
+        return self.name
+
+    def set_xy_1(self, xy_1):
+        self.xy_1 = xy_1
+
+    def get_xy_2(self):
+        return self.xy_2
+
+    def set_xy_2(self, xy_2):
+        self.xy_2 = xy_2
+
+    def clear_preset(self):
+        self.set_name(None)
+        self.set_item(None)
+        self.set_xy_1((0, 0))
+        self.set_xy_2((0, 0))
 
 
 # https://github.com/seanpar203/event-bus - Creates a publish/subscribe model for events. This is what I need to be using to get the data from various events going in the right directions.
