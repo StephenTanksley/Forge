@@ -11,3 +11,12 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+
+# Unnecessary files from cache
+__pycache__/poe_gui.cpython-38.pyc
+__pycache__/poe_preset.cpython-38.pyc
+__pycache__/poe_ui.cpython-38.pyc
+__pycache__/poe_input.cpython-38.pyc
+__pycache__/poe_script.cpython-38.pyc
+playground.py
