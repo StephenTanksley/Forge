@@ -1,4 +1,5 @@
 import unittest
+from pynput import mouse, keyboard
 from poe_ui import POEForge
 from poe_preset import Preset
 from poe_input import Mouse, Keyboard
@@ -12,6 +13,10 @@ class InputUnitTest(unittest.TestCase):
 
     """
         Tests in this suite will determine whether the input listeners work properly and are getting the proper data that's expected.
+
+        So what do I need these unit tests for the inputs to even do?
+
+        I need them to make sure that they're getting the correct data from the mouse.
     """
 
     def setUp(self):
