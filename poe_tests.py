@@ -5,7 +5,7 @@ from poe_input import Mouse, Keyboard
 from event_bus import EventBus
 import teek
 
-"""--------- UNIT TESTS ---------"""
+"""------------- UNIT TESTS -------------"""
 
 
 class InputUnitTest(unittest.TestCase):
@@ -19,6 +19,11 @@ class InputUnitTest(unittest.TestCase):
         self.mouse = Mouse(self.bus)
         self.keyboard = Keyboard(self.bus)
 
+    def tearDown(self):
+        self.keyboard = None
+        self.mouse = None
+        self.bus = None
+
 
 class PresetUnitTest(unittest.TestCase):
 
@@ -31,6 +36,10 @@ class PresetUnitTest(unittest.TestCase):
         self.bus = EventBus()
         self.preset = Preset("test", self.bus, item="helmet",
                              xy_1=(0, 1), xy_2=(1, 2))
+
+    def tearDown(self):
+        self.bus = None
+        self.preset = None
 
     def test_get_name(self):
         self.assertEqual(self.preset.get_name(), "test")
@@ -67,7 +76,7 @@ class PresetUnitTest(unittest.TestCase):
         self.assertEqual(self.preset.get_xy_1(), (0, 0))
         self.assertEqual(self.preset.get_xy_2(), (0, 0))
 
-    # Still unsure how I'll be handling kwargs.
+    # Still unsure how I'll be handling kwargs. For now I think I'll leave them out.
 
 
 class UIUnitTest(unittest.TestCase):
@@ -82,7 +91,7 @@ class UIUnitTest(unittest.TestCase):
         self.ui = POEForge(self.window, self.bus)
 
 
-"""--------- INTEGRATION TESTS ---------"""
+"""------------- INTEGRATION TESTS -------------"""
 
 
 class IntegrationTests(unittest.TestCase):
