@@ -44,6 +44,10 @@ class Mouse(Controller):
         print('Scrolled {0} at {1}'.format(
             'down' if dy < 0 else 'up', (self.x, self.y)))
 
+    def drag(self, start, stop):
+        self.position = start
+        self.press(Button.left)
+
 
 class Keyboard(Controller):
 
