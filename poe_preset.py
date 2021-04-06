@@ -24,25 +24,25 @@ class Preset:
     def get_name(self):
         return self.name
 
-    def set_name(self, name):
+    def set_name(self, name: str):
         self.name = name
 
     def get_item(self):
         return self.item
 
-    def set_item(self, item):
+    def set_item(self, item: str):
         self.item = item
 
     def get_xy_1(self):
         return self.xy_1
 
-    def set_xy_1(self, xy_1):
+    def set_xy_1(self, xy_1: tuple):
         self.xy_1 = xy_1
 
     def get_xy_2(self):
         return self.xy_2
 
-    def set_xy_2(self, xy_2):
+    def set_xy_2(self, xy_2: tuple):
         self.xy_2 = xy_2
 
     def clear_preset(self):

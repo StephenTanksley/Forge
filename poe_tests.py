@@ -34,7 +34,6 @@ class PresetUnitTest(unittest.TestCase):
 
     """
         Tests in this suite will determine if the methods encapsulated in the Preset class properly modify the private attributes of the class.
-
     """
 
     def setUp(self):
