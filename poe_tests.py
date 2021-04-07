@@ -81,12 +81,13 @@ class PresetUnitTest(unittest.TestCase):
         self.assertEqual(self.preset.get_xy_1(), (0, 0))
         self.assertEqual(self.preset.get_xy_2(), (0, 0))
 
-    # Still unsure how I'll be handling kwargs. For now I think I'll leave them out.
-
 
 class DataQueueTest(unittest.TestCase):
     def setUp(self):
         self.dq = DataQueue()
+
+    def tearDown(self):
+        self.dq = None
 
     def test_enqueue(self):
         self.dq.enqueue(1)
@@ -135,7 +136,13 @@ class UIUnitTest(unittest.TestCase):
 class IntegrationTests(unittest.TestCase):
 
     """
-        I expect this to be the longest test suite. Tests in this suite will determine if data 
+        I expect this to be the longest test suite. Tests in this suite will determine if data is being transported and manipulated in the ways that I want it to be. These tests will take the following form:
+
+        1) Begin test in Preset with expected state data.
+        2) Invoke methods to mimic user interaction with the interface.
+        3) Create assertions which check the end state of Preset which will be mutated by the operation.
+        4) Along the way, check that each link in the chain is returning the required data.
+            i.e. 
 
     """
 
