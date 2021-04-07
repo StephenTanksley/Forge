@@ -23,23 +23,12 @@ class App:
         self.preset = Preset("something here", self._bus)
         self.controller_mouse = Mouse(self._bus)
         self.controller_keyboard = Keyboard(self._bus)
-        self.active = False
-
-        # Possibly a new class? Set up the listener as an object which can be destroyed when no longer needed.
-
-        ClickListener = mouse.Listener(
-            on_click=self.controller_mouse.on_click)
-
-        @self._bus.on('click listener')
-        def click_listener():
-            ClickListener.start()
-
-        @self._bus.on('stop listener')
-        def stop_listener():
-            ClickListener.stop()
 
         # spin up threads for Teek
         teek.init_threads()
+
+        click_listener = mouse.Listener(
+            on_click=self.controller_mouse.on_click)
 
         window = teek.Window("Path of Exile Forge")
         window.geometry(1280, 720)
