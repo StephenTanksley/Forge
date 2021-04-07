@@ -2,6 +2,7 @@ import unittest
 from pynput import mouse, keyboard
 from poe_ui import POEForge
 from poe_preset import Preset
+from poe_data_queue import DataQueue
 from poe_input import Mouse, Keyboard
 from event_bus import EventBus
 import teek
@@ -81,6 +82,39 @@ class PresetUnitTest(unittest.TestCase):
         self.assertEqual(self.preset.get_xy_2(), (0, 0))
 
     # Still unsure how I'll be handling kwargs. For now I think I'll leave them out.
+
+
+class DataQueueTest(unittest.TestCase):
+    def setUp(self):
+        self.dq = DataQueue()
+
+    def test_enqueue(self):
+        self.dq.enqueue(1)
+        self.assertEqual(self.dq._queue[0], 1)
+        self.assertNotEqual(self.dq._queue[0], 0)
+
+    def test_dequeue(self):
+        self.dq.enqueue(1)
+        integer = self.dq.dequeue()
+        self.assertEqual(integer, 1)
+
+    def test_is_empty_false(self):
+        self.dq.enqueue(1)
+        self.assertFalse(self.dq.is_empty())
+
+    def test_is_empty_true(self):
+        self.dq.flush_queue()
+        self.assertTrue(self.dq.is_empty())
+
+    def test_view_queue(self):
+        self.dq.enqueue(1)
+        self.assertEqual(self.dq.view_queue(), [1])
+
+    def test_flush_queue(self):
+        self.dq.enqueue(1)
+        self.dq.enqueue(2)
+        self.dq.flush_queue()
+        self.assertEqual(self.dq._queue, [])
 
 
 class UIUnitTest(unittest.TestCase):
