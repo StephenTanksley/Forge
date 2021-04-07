@@ -11,6 +11,12 @@ class Mouse(Controller):
         self.pressed = pressed
         self._bus = bus
         self.last_click = None
+        self.active = 0
+
+        @self._bus.on('toggle_listener')
+        def toggle_listening(self):
+            self.active ^= 1
+            print(self.active)
 
     def __str__(self):
         return f'Current state:\nx-coordinate: {self.x}\ny-coordinate: {self.y}\nbutton: {self.button}\npressed: {self.pressed}'
@@ -18,25 +24,25 @@ class Mouse(Controller):
     def __repr__(self):
         return f'[{self.x}, {self.y}, {self.button}, {self.pressed}]'
 
-    def set_last_click(self, coordinates):
-        self.last_click = (coordinates)
+    def set_last_click(self):
+        self.last_click = (self.x, self.y)
 
-    def on_move(self, x, y):
+    # def on_move(self, x, y):
 
-        self.x = float(round(x, 2))
-        self.y = float(round(y, 2))
-        print('Pointer moved to {0}, {1}'.format(self.x, self.y))
+    #     self.x = float(round(x, 2))
+    #     self.y = float(round(y, 2))
+    #     print('Pointer moved to {0}, {1}'.format(self.x, self.y))
 
     def on_click(self, *args):
-
         mouse_button = args[2]
         x = float(round(self.position[0], 2))
         y = float(round(self.position[1], 2))
 
-        print(mouse_button, x, y)
-        return [mouse_button, x, y]
+        self.set_last_click()
+        print(mouse_button, (x, y))
+        return [mouse_button, (x, y)]
 
-    def on_scroll(self, x, y, dx, dy):
+    def on_scroll(self, x: float, y: float, dx, dy):
 
         x = float(round(x, 2))
         y = float(round(y, 2))
@@ -44,7 +50,7 @@ class Mouse(Controller):
         print('Scrolled {0} at {1}'.format(
             'down' if dy < 0 else 'up', (self.x, self.y)))
 
-    def drag(self, start, stop):
+    def drag(self, start: tuple, stop: tuple):
         self.position = start
         self.press(Button.left)
 
@@ -87,6 +93,7 @@ class Keyboard(Controller):
 
 
 # NON-BLOCKING:
+
 
 # MouseListener = mouse.Listener(
 #     on_move=controller_mouse.on_move, on_click=controller_mouse.on_click, on_scroll=controller_mouse.on_scroll)
