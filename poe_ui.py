@@ -5,20 +5,16 @@ from poe_input import Mouse
 from pynput import mouse
 
 
-def print_item():
-    print("I'm being activated")
-
-
 class POEForge(teek.Frame):
     def __init__(self, window, bus, *args, **kwargs):
         super().__init__(window, *args, **kwargs)
         self._bus = bus
 
-        def trigger_listener():
-            self._bus.emit("click listener")
+        def say_hello():
+            print("Hello.")
 
-        def stop_listener():
-            self._bus.emit('stop listener')
+        def toggle_listener():
+            self._bus.emit("toggle_listener")
 
         frame = teek.Frame(window)
         frame.grid(column=0, row=0)
@@ -114,15 +110,15 @@ class POEForge(teek.Frame):
 
         """BUTTONS"""
         target_1_set = teek.Button(
-            frame, text="Set target 1 (x,y)", width=15, command=trigger_listener)
+            frame, text="Set target 1 (x,y)", width=15, command=toggle_listener)
         target_1_set.grid(column=3, row=2, sticky="W", padx=3)
 
         target_2_set = teek.Button(
-            frame, text="Set target 2 (x,y)", width=15, command=stop_listener)
+            frame, text="Set target 2 (x,y)", width=15, command=say_hello)
         target_2_set.grid(column=3, row=3, sticky="W", padx=3)
 
         item_target_set = teek.Button(
-            frame, text="Set item target (x,y)", width=15, command=trigger_listener)
+            frame, text="Set item target (x,y)", width=15, command=say_hello)
         item_target_set.grid(column=3, row=4, sticky="W", padx=3)
 
         """INPUT FIELDS"""
