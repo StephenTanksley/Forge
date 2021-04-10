@@ -6,9 +6,10 @@ from pynput import mouse
 
 
 class POEForge(teek.Frame):
-    def __init__(self, window, bus, *args, **kwargs):
+    def __init__(self, window, bus, queue, *args, **kwargs):
         super().__init__(window, *args, **kwargs)
         self._bus = bus
+        self._queue = queue
 
         def say_hello():
             print("Hello.")

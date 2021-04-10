@@ -7,9 +7,10 @@
 
 
 class Preset:
-    def __init__(self, name, bus, item=None, xy_1=(0, 0), xy_2=(0, 0), **kwargs):
+    def __init__(self, name, bus, queue, item=None, xy_1=(0, 0), xy_2=(0, 0), **kwargs):
         self.name = name
         self._bus = bus
+        self._queue = queue
         self.item = item
         self.xy_1 = xy_1
         self.xy_2 = xy_2

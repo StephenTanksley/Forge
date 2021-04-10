@@ -4,7 +4,7 @@ from sys import exit
 
 
 class Mouse(Controller):
-    def __init__(self, bus, x=0, y=0, button=None, pressed=False):
+    def __init__(self, bus, queue, x=0, y=0, button=None, pressed=False):
         self.x = self.position
         self.y = self.position
         self.button = button

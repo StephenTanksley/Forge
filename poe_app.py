@@ -5,6 +5,7 @@ from poe_preset import Preset
 from poe_input import Mouse, Keyboard
 from pynput import mouse, keyboard
 from event_bus import EventBus
+from poe_data_queue import DataQueue
 
 # # This class will be a wrapper class which manages instances of the Mouse, Keyboard, GUI and the script itself. This globalizes state and manages the dispatch of data between components.
 
@@ -20,9 +21,10 @@ from event_bus import EventBus
 class App:
     def __init__(self):
         self._bus = EventBus()
-        self.preset = Preset("something here", self._bus)
-        self.controller_mouse = Mouse(self._bus)
-        self.controller_keyboard = Keyboard(self._bus)
+        self._queue = DataQueue()
+        self.preset = Preset("something here", self._bus, self._queue)
+        self.controller_mouse = Mouse(self._bus, self._queue)
+        self.controller_keyboard = Keyboard(self._bus, self._queue)
 
         # spin up threads for Teek
         teek.init_threads()
@@ -32,7 +34,7 @@ class App:
 
         window = teek.Window("Path of Exile Forge")
         window.geometry(1280, 720)
-        POEForge(window, self._bus)
+        POEForge(window, self._bus, self._queue)
 
         window.on_delete_window.connect(teek.quit)
         teek.run()
