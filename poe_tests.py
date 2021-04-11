@@ -39,7 +39,8 @@ class PresetUnitTest(unittest.TestCase):
 
     def setUp(self):
         self.bus = EventBus()
-        self.preset = Preset("test", self.bus, item="helmet",
+        self._queue = DataQueue()
+        self.preset = Preset("test", self.bus, self._queue, item="helmet",
                              xy_1=(0, 1), xy_2=(1, 2))
 
     def tearDown(self):
