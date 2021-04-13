@@ -30,16 +30,17 @@ class InputUnitTest(unittest.TestCase):
         self.mouse = None
         self.bus = None
 
-
-class PresetUnitTest(unittest.TestCase):
-
     """
         Tests in this suite will determine if the methods encapsulated in the Preset class properly modify the private attributes of the class.
     """
 
+
+class PresetUnitTest(unittest.TestCase):
+
     def setUp(self):
         self.bus = EventBus()
-        self.preset = Preset("test", self.bus, item="helmet",
+        self._queue = DataQueue()
+        self.preset = Preset("test", self.bus, self._queue, item="helmet",
                              xy_1=(0, 1), xy_2=(1, 2))
 
     def tearDown(self):
@@ -80,6 +81,12 @@ class PresetUnitTest(unittest.TestCase):
         self.assertEqual(self.preset.get_item(), None)
         self.assertEqual(self.preset.get_xy_1(), (0, 0))
         self.assertEqual(self.preset.get_xy_2(), (0, 0))
+
+
+"""
+      Tests in this suite will determine if the methods encapsulated in the Preset class properly modify the private attributes of the class.
+
+"""
 
 
 class DataQueueTest(unittest.TestCase):

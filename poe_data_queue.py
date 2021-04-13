@@ -36,9 +36,3 @@ class DataQueue:
 
     def flush_queue(self):
         self._queue = []
-
-
-dq = DataQueue()
-
-dq.enqueue(1)
-print(dq.view_queue())
